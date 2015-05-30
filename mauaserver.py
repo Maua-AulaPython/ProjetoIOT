@@ -18,30 +18,30 @@ def index():
 if __name__ == '__main__':
 	app.run(debug=True)
 
-'''
-@app.route('/api/v1.0/alunos', methods=['GET'])
-def aluno_list():
-	alunos = []
-	for i in Aluno.query.all():
-		print i.nome, i.idade
-		alunos.append({'id': i.id, 'nome': i.nome, 'idade': i.idade})
+@app.route('/list/<id_dev>',methods=['GET'])
+def measure_list(id_dev=None):
+        medidas=[]
+        if id_dev:
+           for m in Measure.query.find(id_device=id_dev):
+                print i.id,i.temperatura,i.data
+                medidas.apend({'id':i.id,'temperatura':i.temperatura,'data':i.data})
 
-	return json.dumps(alunos)
+           return json.dumps(medidas)
 
 
-@app.route('/api/aluno/new', methods=['POST'])
-def aluno_new():
-	if not request.json:
-		return jsonify({'status': False})
+@app.route('/new')
+def measure_new():
+        if not request.json:
+                return jsonify({'status':False})
+        
+        p=request.get_json()
+        med=Measure()
+        med.id = p['id']
+        med.id_devie=p['id_device']
+        med.temperatura=p['temperatura']
+        med.data=p['data'];
+        db.session.add(med);
+        db.session.commit()
 
-	p = request.get_json()
-	a = Aluno()
-	a.nome = p['nome']
-	a.idade = p['idade']
-	db.session.add(a)
-	db.session.commit()
-
-	return jsonify({'status:': True})
-
-'''
+        return jsonify({'status':True})
 
