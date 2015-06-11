@@ -14,18 +14,18 @@ from modos import *
 @app.route('/')
 def index():
 	return "Hello World! Rotas: [/list/<id_device>]-lista as medidas de todos ou um so device- e [/new]-grava nova medida"
-
+      
 
 
 @app.route('/list/<id_dev>',methods=['GET'])
 def measure_list(id_dev=None):
         medidas=[]
         if id_dev:
-           for m in Measure.query.find(id_device=id_dev):
-                print i.id,i.temperatura,i.data
-                medidas.apend({'id':i.id,'temperatura':i.temperatura,'data':i.data})
+           for m in Measure.query.filter(Measure.id_device==id_dev):
+                print m.id,m.temperatura,m.data
+                medidas.apend({'id':m.id,'temperatura':m.temperatura,'data':m.data})
         else:
-           for m in Measure.query.all():
+           for i in Measure.query.all():
                 print i.id,i.temperatura,i.data
                 medidas.apend({'id':i.id,'id_device':i.id_device,'temperatura':i.temperatura,'data':i.data})     
 
