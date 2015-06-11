@@ -13,10 +13,9 @@ from modos import *
 
 @app.route('/')
 def index():
-	return "trouxa"
+	return "Hello World! Rotas: [/list/<id_device>]-lista as medidas de todos ou um so device- e [/new]-grava nova medida"
 
-if __name__ == '__main__':
-	app.run(debug=True)
+
 
 @app.route('/list/<id_dev>',methods=['GET'])
 def measure_list(id_dev=None):
@@ -25,11 +24,15 @@ def measure_list(id_dev=None):
            for m in Measure.query.find(id_device=id_dev):
                 print i.id,i.temperatura,i.data
                 medidas.apend({'id':i.id,'temperatura':i.temperatura,'data':i.data})
+        else:
+           for m in Measure.query.all():
+                print i.id,i.temperatura,i.data
+                medidas.apend({'id':i.id,'id_device':i.id_device,'temperatura':i.temperatura,'data':i.data})     
 
-           return json.dumps(medidas)
+        return json.dumps(medidas)
 
 
-@app.route('/new')
+@app.route('/new',methods = ['POST'])
 def measure_new():
         if not request.json:
                 return jsonify({'status':False})
@@ -37,7 +40,7 @@ def measure_new():
         p=request.get_json()
         med=Measure()
         med.id = p['id']
-        med.id_devie=p['id_device']
+        med.id_device=p['id_device']
         med.temperatura=p['temperatura']
         med.data=p['data'];
         db.session.add(med);
@@ -45,3 +48,5 @@ def measure_new():
 
         return jsonify({'status':True})
 
+if __name__ == '__main__':
+	app.run(debug=True)

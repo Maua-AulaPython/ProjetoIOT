@@ -3,7 +3,7 @@ from mauaserver import db
 class Device(db.Model):
     id= db.Column(db.Integer,primary_key = True)
     nome=db.Column(db.String(20))
-
+    medidas=db.relationship('Measure')
 
 class Measure(db.Model):
     id=db.Column(db.Integer,primary_key=True)
