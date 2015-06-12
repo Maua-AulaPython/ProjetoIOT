@@ -32,7 +32,7 @@ def measure_list(id_dev=None):
         return json.dumps(medidas)
 
 
-@app.route('/new',methods = ['POST'])
+@app.route('/new',methods=['POST'])
 def measure_new():
         if not request.json:
                 return jsonify({'status':False})
