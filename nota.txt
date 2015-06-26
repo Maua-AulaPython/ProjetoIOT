@@ -1,0 +1,5 @@
+Nota: 4.0
+Comentario: Bom uso de rotas dinamicas, entretanto da forma como foi colocada o
+list sem parametros da 404. Excelente uso de filter(). Bonus points por tentar fazer
+o device. Rota "new", para inserir (ou "postar") novas medidas deve ser POST e
+não GET.
